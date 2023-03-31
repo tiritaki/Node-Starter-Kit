@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express()
+app.use(express.json())
 
 const albumsData = [
     {
@@ -39,7 +40,11 @@ app.get("/albums", (req, res) => {res.send(albumsData)})
 app.get("/albums/:albumId", (req, res) => {res.send(
         albumsData.filter(item => item.albumId.includes(req.params.albumId)))})
 
-// app.get("/albums/:albumId", (req, res) => {res.send(req.params.albumId)})
+app.post("/albums", (req, res) => {
+    console.log("POST /album route")
+    console.log(req.body)
+    albumsData.push(req.body)
+})
        
 app.listen(3000, () => {
     console.log('Server is listening on port 3000. Ready to accept requests!')

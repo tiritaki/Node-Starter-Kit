@@ -35,17 +35,26 @@ const albumsData = [
       },
   ];
 
+// get list of albums
 app.get("/albums", (req, res) => {res.send(albumsData)})
 
+//get album by id by using req.parmas
 app.get("/albums/:albumId", (req, res) => {res.send(
         albumsData.filter(item => item.albumId.includes(req.params.albumId)))})
 
+// Use Postman to POST this data to /albums endpoint.
 app.post("/albums", (req, res) => {
     console.log("POST /album route")
     console.log(req.body)
     albumsData.push(req.body)
 })
-       
+
+//Delete an album
+app.delete("/albums/:albumId", (req, res) => {
+  console.log("DELETE/ album route",  req.params.albumId)
+  albumsData.filter( id  => id.albumId !== req.params.albumId);
+})
+
 app.listen(3000, () => {
     console.log('Server is listening on port 3000. Ready to accept requests!')
 })
